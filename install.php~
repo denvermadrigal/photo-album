@@ -1,0 +1,95 @@
+<?php
+require_once 'inc/configuration.php';
+if(class_exists('Config')){
+	header('location: ./');
+	exit;
+}
+?>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class='no-js lt-ie9 lt-ie8 lt-ie7'> <![endif]-->
+<!--[if IE 7]>         <html class='no-js lt-ie9 lt-ie8'> <![endif]-->
+<!--[if IE 8]>         <html class='no-js lt-ie9'> <![endif]-->
+<!--[if gt IE 8]><!--> <html class='no-js'> <!--<![endif]-->
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
+		<title>Installation</title>
+		<meta name='description' content='' />
+		<meta name='viewport' content='width=device-width' />
+		<link rel='stylesheet' href='css/bootstrap.min.css' />
+		<link rel='stylesheet' href='css/bootstrap-responsive.min.css' />
+		<link rel='stylesheet' href='css/main.css' />
+		<script src='js/vendor/modernizr-2.6.2-respond-1.1.0.min.js'></script>
+	</head>
+	<body class='install'>
+		<!--[if lt IE 7]>
+			<p class='chromeframe'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'>upgrade your browser</a> or <a href='http://www.google.com/chromeframe/?redirect=true'>activate Google Chrome Frame</a> to improve your experience.</p>
+		<![endif]-->
+
+		<!-- content: begin -->
+		<div class='container'>
+			<form class='form-signin' id='frm_install' method='post' action='install.php' autocomplete='off'>
+				<div class='page-header'>
+					<h1 class='form-signin-heading'>{album.install}</h1>
+				</div>
+				<h3>Account Information</h3>
+				<input type='text' name='name' class='input-block-level' placeholder='*Your Name' />
+				<input type='text' name='email' class='input-block-level' placeholder='*Your Email' />
+				<input type='password' name='password' class='input-block-level' placeholder='*Password' />
+				<input type='password' name='verify_password' class='input-block-level' placeholder='*Verify Password' />
+				<input type='text' name='site_name' class='input-block-level' placeholder='*Site Name' />
+				<input type='text' name='meta_keyword' class='input-block-level' placeholder='Meta Keyword' />
+				<textarea name='meta_description' class='input-block-level' placeholder='Meta Description'></textarea>
+				<textarea name='footer_text' class='input-block-level' placeholder='Footer Text'></textarea>
+				<input type='text' name='ga_tracking_id' class='input-block-level' placeholder='Google Analytics Tracking ID' />
+				<a onclick='chkInstallData();' href='#' class='btn btn-primary'>Click here to install</a>
+				<input type='hidden' name='xsubmit' value='do.install' />
+			</form>
+		</div>
+		<!-- content: end -->
+
+		<script src='js/vendor/jquery-1.9.1.min.js'></script>
+		<script src='js/vendor/bootstrap.min.js'></script>
+		<script src='js/main.js'></script>
+		<script>
+			function chkInstallData(){
+				var msg = new Array();
+				if($('input[name="name"]').val() == ''){
+					msg.push('Your name is required.');
+				}
+				var email = $('input[name="email"]').val();
+				if(email.match(/^\w+(['\.\-\+]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/) == null){
+					msg.push('Your email is invalid.');
+				}
+				if($('input[name="password"]').val() != ''){
+					if($('input[name="password"]').val() != $('input[name="verify_password"]').val()){
+						msg.push('Password verification failed.');
+					}
+				}else{
+					msg.push('Please enter your password.');
+				}
+				if($('input[name="site_name"]').val() == ''){
+					msg.push('Site name is required.');
+				}
+				
+				if(msg.length){
+					var html = '<strong>Form validation error(s):</strong><ul>';
+					for(var i = 0; i < msg.length; i++){
+						html+= '<li>'+msg[i]+'</li>';
+					}
+					html+= '</ul>';
+					$('.alert-error-msg').html(html);
+					$('.alert-error').fadeIn();
+				}else{
+					$('.alert-error').fadeOut();
+					$('.alert-error-msg').html('');
+					$('#frm_install').submit();
+				}
+			}
+			var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+			(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+			g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+			s.parentNode.insertBefore(g,s)}(document,'script'));
+		</script>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+<?php
+# author: denver madrigal
+# script: photo album v1.0
+class Helpers{
+	private $_host;
+	private $_user;
+	private $_pass;
+	private $_name;
+	
+	function __construct(){ /**/ }
+	
+	function init(){
+		# check if already installed
+		require_once 'configuration.php';
+		if(!class_exists('Config')){
+			header('location: ./install.php');
+			exit;
+		}
+	}
+}
+Helpers::init();
+?>
