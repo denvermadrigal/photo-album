@@ -1,5 +1,9 @@
 (function($){
 	$(document).ready(function(){
+    $('.show-login').click(function(){
+      $('#modal-login').modal('show');
+    });
+
 		$('.nav-call').click(function(){
 			var hash = $(this).attr('rel');
 			// check if there are images

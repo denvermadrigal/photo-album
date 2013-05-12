@@ -56,6 +56,11 @@ $albums = Helpers::getAlbums();
 								<?php endif; ?>
 							</li>
 						</ul>
+            <ul class='nav pull-right'>
+              <li>
+                <a class='show-login' href='#'>Log In</a>
+               </li>
+            </ul>
 					</div>
 				</div>
 			</div>
@@ -68,6 +73,25 @@ $albums = Helpers::getAlbums();
 			<?php echo $conf->footer_text; ?>
 			<div>Hand made by <a href='mailto:denvermadrigal@gmail.com'>denvermadrigal@gmail.com</a></div>
 		</div>
+
+    <!-- modal -->
+    <div id='modal-login' class='modal hide fade'>
+      <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+        <h3>Administrator Log In</h3>
+      </div>
+      <div class='modal-body'>
+        <form name='login_form' id='login_form' action='./' method='post' autocomplete='off'>
+          <input type='text' name='admin_email' placeholder='you@email.com' class='input-xlarge' />
+          <input type='password' name='admin_password' placeholder='password' class='input-xlarge' />
+          <input type='hidden' name='xsubmit' value='user.authenticate' />
+        </form>
+      </div>
+      <div class='modal-footer'>
+        <a href='#' class='btn' onclick='$("#modal-login").modal("hide");document.forms["login_form"].reset();'>Close</a>
+        <a href='#' class='btn btn-primary'>Submit</a>
+      </div>
+    </div>
 
 		<script src='js/vendor/jquery-1.9.1.min.js'></script>
 		<script src='js/vendor/bootstrap.min.js'></script>
